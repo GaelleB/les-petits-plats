@@ -1,7 +1,6 @@
 import React from "react";
 
 function TagFilters({ recipes, onAddTag }) {
-    // Récupération des listes uniques
     const ingredients = [...new Set(recipes.flatMap(r => r.ingredients.map(i => i.ingredient.toLowerCase())))];
     const ustensiles = [...new Set(recipes.flatMap(r => r.ustensils.map(u => u.toLowerCase())))];
     const appareils = [...new Set(recipes.map(r => r.appliance.toLowerCase()))];

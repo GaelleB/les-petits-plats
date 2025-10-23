@@ -23,44 +23,6 @@ header {
     font-size: 1rem;
 }
 
-.recipes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-
-.recipe-card {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.recipe-detail {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    line-height: 1.6;
-}
-
-.recipe-detail h2 {
-    margin-top: 0;
-}
-
-.back-btn {
-    margin-bottom: 1rem;
-    background: none;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    color: #0077cc;
-}
-
-.back-btn:hover {
-    text-decoration: underline;
-}
-
 .filters {
     display: flex;
     gap: 1rem;
@@ -92,4 +54,35 @@ header {
     border: none;
     margin-left: 0.5rem;
     cursor: pointer;
+}
+
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.recipe-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.recipe-detail {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    line-height: 1.6;
+}
+
+.back-btn {
+    margin-bottom: 1rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #0077cc;
 }

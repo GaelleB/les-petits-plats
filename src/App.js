@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import recipesData from "./data/recipes";
+import { filterRecipes } from "./utils/filterUtils";
 import SearchBar from "./components/SearchBar";
 import TagFilters from "./components/TagFilters";
 import RecipeList from "./components/RecipeList";
@@ -10,49 +11,15 @@ function App() {
   const [recipes, setRecipes] = useState(recipesData);
   const [query, setQuery] = useState("");
   const [tags, setTags] = useState([]);
-  const [selectedRecipe, setSelectedRecipe] = useState(null); // 🆕 fiche active
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
-  // 🔁 Filtrage combiné (déjà en place)
+  // 🔁 Filtrage combiné (texte + tags)
   useEffect(() => {
-    let filtered = recipesData;
-
-    if (query.length >= 3) {
-      filtered = filtered.filter((recipe) => {
-        const term = query.toLowerCase();
-        return (
-          recipe.name.toLowerCase().includes(term) ||
-          recipe.description.toLowerCase().includes(term) ||
-          recipe.ingredients.some((i) =>
-            i.ingredient.toLowerCase().includes(term)
-          )
-        );
-      });
-    }
-
-    tags.forEach((tag) => {
-      if (tag.type === "ingredient") {
-        filtered = filtered.filter((recipe) =>
-          recipe.ingredients.some(
-            (i) => i.ingredient.toLowerCase() === tag.value
-          )
-        );
-      }
-      if (tag.type === "ustensil") {
-        filtered = filtered.filter((recipe) =>
-          recipe.ustensils.some((u) => u.toLowerCase() === tag.value)
-        );
-      }
-      if (tag.type === "appliance") {
-        filtered = filtered.filter(
-          (recipe) => recipe.appliance.toLowerCase() === tag.value
-        );
-      }
-    });
-
+    const filtered = filterRecipes(recipesData, query, tags);
     setRecipes(filtered);
   }, [query, tags]);
 
-  // 🔹 Tags
+  // ➕ Ajout de tag
   function handleAddTag(value, type) {
     if (!value) return;
     const newTag = { value: value.toLowerCase(), type };
@@ -61,28 +28,18 @@ function App() {
     }
   }
 
+  // ❌ Suppression de tag
   function handleRemoveTag(value) {
     setTags(tags.filter((t) => t.value !== value));
-  }
-
-  // 🔹 Navigation entre liste et fiche
-  function handleSelectRecipe(recipe) {
-    setSelectedRecipe(recipe);
-  }
-
-  function handleBack() {
-    setSelectedRecipe(null);
   }
 
   return (
     <div className="app-container">
       <header>
         <h1>Les Petits Plats</h1>
-        <SearchBar
-          recipes={recipesData}
-          setRecipes={setRecipes}
-          setQuery={setQuery}
-        />
+
+        <SearchBar setQuery={setQuery} />
+
         <div className="active-tags">
           {tags.map((tag) => (
             <span key={tag.value} className={`tag ${tag.type}`}>
@@ -97,9 +54,12 @@ function App() {
 
       <main>
         {selectedRecipe ? (
-          <RecipeDetail recipe={selectedRecipe} onBack={handleBack} />
+          <RecipeDetail
+            recipe={selectedRecipe}
+            onBack={() => setSelectedRecipe(null)}
+          />
         ) : (
-          <RecipeList recipes={recipes} onSelect={handleSelectRecipe} />
+          <RecipeList recipes={recipes} onSelect={setSelectedRecipe} />
         )}
       </main>
     </div>
