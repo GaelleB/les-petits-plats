@@ -16,6 +16,16 @@ header {
     margin: 2rem 0;
 }
 
+.logo {
+    width: 268px;
+    margin-top: 46px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    opacity: 1;
+    display: block;
+}
+
 .search-bar input {
     width: 100%;
     max-width: 600px;

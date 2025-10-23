@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="app-container">
       <header>
-        <h1>Les Petits Plats</h1>
+        <img src="/les-petits-plats.png" alt="Les Petits Plats" className="logo" />
 
         <SearchBar setQuery={setQuery} />
 
