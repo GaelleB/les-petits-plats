@@ -35,3 +35,36 @@ header {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.filters select {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.active-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    background: #ddd;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+}
+
+.tag button {
+    background: none;
+    border: none;
+    margin-left: 0.5rem;
+    cursor: pointer;
+}

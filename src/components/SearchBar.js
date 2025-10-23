@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function SearchBarFunctional({ recipes, setRecipes }) {
+function SearchBar({ recipes, setRecipes }) {
     const [query, setQuery] = useState("");
 
     function handleSearch(e) {
@@ -39,4 +39,4 @@ function SearchBarFunctional({ recipes, setRecipes }) {
     );
 }
 
-export default SearchBarFunctional;
+export default SearchBar;
