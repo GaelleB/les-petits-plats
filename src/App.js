@@ -3,18 +3,19 @@ import recipesData from "./data/recipes";
 import SearchBar from "./components/SearchBar";
 import TagFilters from "./components/TagFilters";
 import RecipeList from "./components/RecipeList";
+import RecipeDetail from "./components/RecipeDetail";
 import "./styles.css";
 
 function App() {
   const [recipes, setRecipes] = useState(recipesData);
   const [query, setQuery] = useState("");
   const [tags, setTags] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null); // 🆕 fiche active
 
-  // 🔁 Filtrage combiné : recherche + tags
+  // 🔁 Filtrage combiné (déjà en place)
   useEffect(() => {
     let filtered = recipesData;
 
-    // 1️⃣ Recherche principale (champ texte)
     if (query.length >= 3) {
       filtered = filtered.filter((recipe) => {
         const term = query.toLowerCase();
@@ -28,7 +29,6 @@ function App() {
       });
     }
 
-    // 2️⃣ Filtrage par tags (intersection)
     tags.forEach((tag) => {
       if (tag.type === "ingredient") {
         filtered = filtered.filter((recipe) =>
@@ -52,7 +52,7 @@ function App() {
     setRecipes(filtered);
   }, [query, tags]);
 
-  // 🔹 Gestion ajout de tag
+  // 🔹 Tags
   function handleAddTag(value, type) {
     if (!value) return;
     const newTag = { value: value.toLowerCase(), type };
@@ -61,9 +61,17 @@ function App() {
     }
   }
 
-  // 🔹 Suppression d’un tag
   function handleRemoveTag(value) {
     setTags(tags.filter((t) => t.value !== value));
+  }
+
+  // 🔹 Navigation entre liste et fiche
+  function handleSelectRecipe(recipe) {
+    setSelectedRecipe(recipe);
+  }
+
+  function handleBack() {
+    setSelectedRecipe(null);
   }
 
   return (
@@ -85,9 +93,14 @@ function App() {
         </div>
       </header>
 
-      <TagFilters recipes={recipesData} onAddTag={handleAddTag} />
+      <TagFilters recipes={recipes} onAddTag={handleAddTag} />
+
       <main>
-        <RecipeList recipes={recipes} />
+        {selectedRecipe ? (
+          <RecipeDetail recipe={selectedRecipe} onBack={handleBack} />
+        ) : (
+          <RecipeList recipes={recipes} onSelect={handleSelectRecipe} />
+        )}
       </main>
     </div>
   );
