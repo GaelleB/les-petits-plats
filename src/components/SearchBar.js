@@ -31,10 +31,11 @@ function SearchBar({ recipes, setRecipes }) {
         <div className="search-bar">
         <input
             type="text"
-            placeholder="Rechercher une recette, un ingrédient ou une description..."
+            placeholder="Rechercher une recette"
             value={query}
             onChange={handleSearch}
         />
+        <img src="/search-icon.svg" alt="Rechercher" className="search-icon" />
         </div>
     );
 }
