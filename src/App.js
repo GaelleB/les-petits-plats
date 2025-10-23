@@ -5,13 +5,13 @@ import RecipeList from "./components/RecipeList";
 import "./styles.css";
 
 function App() {
-  const [recipes] = useState(recipesData);
+  const [recipes, setRecipes] = useState(recipesData);
 
   return (
     <div className="app-container">
       <header>
         <h1>Les Petits Plats</h1>
-        <SearchBar />
+        <SearchBar recipes={recipesData} setRecipes={setRecipes} />
       </header>
       <main>
         <RecipeList recipes={recipes} />
